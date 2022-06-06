@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [TemplateController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/category_filter/{id}', [TemplateController::class, 'category_filter'])->name('category_filter');
 
 
 // Route::get('/', function () {
