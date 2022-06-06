@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
 {
@@ -14,7 +15,9 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        //
+        $template = template::paginate(50);
+        $filter = null;
+        return view('dashboard', ['template' => $template, 'filter' => $filter]);
     }
 
     /**

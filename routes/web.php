@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [invitController::class, 'index'])->name('dashboard');
+Route::get('/', [TemplateController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
