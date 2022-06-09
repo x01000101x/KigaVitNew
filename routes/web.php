@@ -51,6 +51,8 @@ Route::get('/add_music/{id}', [ClientTemplateController::class, 'add_music'])->n
 Route::get('/send_email', [ClientTemplateController::class, 'send_email'])->name('send_email')->middleware('auth');
 Route::post('/send_bulk_email', [ClientTemplateController::class, 'send_bulk_email'])->name('send_bulk_email')->middleware('auth');
 
+//delete this after push only test
+
 // Admin Route
 // 3
 Route::get('/create_template', function () {
@@ -70,8 +72,6 @@ Route::get('/fill_rsvp', function () {
 });
 Route::post('/add_rsvp', [Rsvp::class, 'add_rsvp'])->name('add_rsvp');
 Route::get('/download_format', [ClientTemplateController::class, 'download_format'])->name('download_format');
-
-
 
 
 // Route::get('/', function () {

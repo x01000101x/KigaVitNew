@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-use App\Models\Client_template;
-use App\Models\Css_data;
-use App\Models\Js_data;
-use App\Models\Sub_template;
-use App\Models\Sub_template_client;
+use App\Models\{
+    Client_template,
+    Css_data,
+    Js_data,
+    Sub_template,
+    Sub_template_client
+};
+
+
 use App\Mail\invitationMail;
 
 
