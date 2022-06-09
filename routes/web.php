@@ -4,7 +4,9 @@ use App\Http\Controllers\AdminController;
 //OtherControllers
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientTemplateController;
 use App\Http\Controllers\LikeTemplateController;
+use App\Http\Controllers\SubTemplateClientController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +35,9 @@ Route::get('/like_template/{id}', [LikeTemplateController::class, 'like_template
 // when you have selected a template, this route will be available
 // 2:
 Route::get('/template_details/{id}', [TemplateController::class, 'details'])->middleware('auth');
-Route::get('/edit_template/{id}', [invitController::class, 'edit_template'])->middleware('auth');
-Route::get('/edit_sub_template/{id}', [invitController::class, 'edit_sub_template'])->middleware('auth');
-Route::get('/my_template', [invitController::class, 'my_template'])->name('my_template')->middleware('auth');
+Route::get('/edit_template/{id}', [ClientTemplateController::class, 'edit_template'])->middleware('auth');
+Route::get('/edit_sub_template/{id}', [SubTemplateClientController::class, 'edit_sub_template'])->middleware('auth');
+Route::get('/my_template', [ClientTemplateController::class, 'my_template'])->name('my_template')->middleware('auth');
 Route::post('/select_template/{id}', [invitController::class, 'select_template'])->name('select-template')->middleware('auth');
 Route::post('/new_layer', [invitController::class, 'new_layer'])->middleware('auth');
 Route::post('/delete_template', [invitController::class, 'delete_template'])->middleware('auth');
