@@ -3,83 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rsvp;
+use App\Models\Client_template;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RsvpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    // this page where you can see who has commented and ordered rsvp
+    public function responden(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Rsvp  $rsvp
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Rsvp $rsvp)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Rsvp  $rsvp
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Rsvp $rsvp)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rsvp  $rsvp
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Rsvp $rsvp)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Rsvp  $rsvp
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Rsvp $rsvp)
-    {
-        //
+        $solve = [];
+        $dat = [];
+        $z = Client_template::where('user_id', Auth::id())->first();
+        $data = rsvp::where('respon', $z->id)->get();
+        foreach ($data as $key => $v) {
+            if ($v->attend == 1) {
+                $solve[] = $v->count;
+            } else {
+                $solve[] = 0 -  $v->count;
+            }
+            $dat[] = $v->date;
+        }
+        return view('responden', ['respon' => $data, 'data' => $solve, 'date' => $dat]);
     }
 }

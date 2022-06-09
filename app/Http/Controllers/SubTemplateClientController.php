@@ -54,4 +54,11 @@ class SubTemplateClientController extends Controller
             return "edit not allowed";
         }
     }
+
+    // when the user presses the save button, he will update the existing client sub template
+    public function update_design(Request $request)
+    {
+        Sub_template_client::where('id', $request->id)->update(['section_code' => $request->sc]);
+        return response()->json(['success' => 'Saved']);
+    }
 }

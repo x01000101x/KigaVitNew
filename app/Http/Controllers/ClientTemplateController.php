@@ -67,4 +67,20 @@ class ClientTemplateController extends Controller
 
         return redirect('my_template')->with('success', 'template has been selected');
     }
+
+    public function delete_template(Request $request)
+    {
+        Client_template::where('user_id', Auth::id())->delete();
+        Sub_template_client::where('user_id', Auth::id())->delete();
+
+        return redirect('/')->with('template_has been deleted');
+    }
+
+    public function in_music(Request $request)
+    {
+        $temp = Client_template::where('user_id', Auth::id())->first();
+        $temp->music = $request->music;
+        $temp->save();
+        return response()->json(['success' => 'add music successfully']);
+    }
 }

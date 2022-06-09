@@ -7,7 +7,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientTemplateController;
 use App\Http\Controllers\LikeTemplateController;
 use App\Http\Controllers\SubTemplateClientController;
+// use App\Http\Controllers\SubTemplateController;
 use App\Http\Controllers\TemplateController;
+use App\Models\Rsvp;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,10 +42,10 @@ Route::get('/edit_sub_template/{id}', [SubTemplateClientController::class, 'edit
 Route::get('/my_template', [ClientTemplateController::class, 'my_template'])->name('my_template')->middleware('auth');
 Route::post('/select_template/{id}', [ClientTemplateController::class, 'select_template'])->name('select-template')->middleware('auth');
 Route::post('/new_layer', [SubTemplateClientController::class, 'new_layer'])->middleware('auth');
-Route::post('/delete_template', [invitController::class, 'delete_template'])->middleware('auth');
-Route::post('/in_music', [invitController::class, 'in_music'])->middleware('auth');
-Route::post('/update_design', [invitController::class, 'update_design'])->middleware('auth');
-Route::get('/responden', [invitController::class, 'responden'])->name('responden');
+Route::post('/delete_template', [ClientTemplateController::class, 'delete_template'])->middleware('auth');
+Route::post('/in_music', [ClientTemplateController::class, 'in_music'])->middleware('auth');
+Route::post('/update_design', [SubTemplateClientController::class, 'update_design'])->middleware('auth');
+Route::get('/responden', [Rsvp::class, 'responden'])->name('responden');
 Route::post('/delete_section', [invitController::class, 'delete_section'])->name('delete_section');
 Route::get('/add_music/{id}', [invitController::class, 'add_music'])->name('add_music');
 Route::get('/send_email', [invitController::class, 'send_email'])->name('send_email')->middleware('auth');
