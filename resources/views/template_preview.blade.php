@@ -321,7 +321,7 @@ button:hover , a:hover{
 </div>
 
 
-@if (is_null(\App\Models\client_template::where(['user_id' => Auth::user()->id])->first()))
+@if (is_null(\App\Models\Client_template::where(['user_id' => Auth::user()->id])->first()))
 	{{-- <form action="/select_template/{{$id}}" style="margin: 0;padding:0;" method="POST">
 		@csrf --}}
 <button class="accept" type="submit" style="border-radius: 20px;position: absolute;display: fixed;z-index: 99;margin:20px;padding:10px;" id="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Select this template !</button>
@@ -488,16 +488,16 @@ createOrder: function(data, actions) {
             {
             "reference_id":id,
             "amount": {
-           
+
             "currency_code": "USD",
             "value": @json($base_template->price),
 
             }
 
         }
-    
+
     ],
-       
+
 
     });
 
@@ -536,7 +536,7 @@ onApprove: function(data, actions) {
 
 
 
-        
+
     });
     window.location.href = "/my_template";
 
