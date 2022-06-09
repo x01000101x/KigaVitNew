@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 use App\Models\Client_template;
@@ -9,13 +14,8 @@ use App\Models\Css_data;
 use App\Models\Js_data;
 use App\Models\Sub_template;
 use App\Models\Sub_template_client;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\invitationMail;
 
-
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 
 class ClientTemplateController extends Controller
@@ -108,5 +108,57 @@ class ClientTemplateController extends Controller
         }
 
         return redirect()->route('send_email')->with(['success' => 'email has been send !']);
+    }
+
+    // now this part is a little bit worrying either because my decoding method which loops then matches the number to make this as (rehasing)
+    // or maybe if there is another method that is safer for rehashing this part, just replace it
+    public function invitation(Request $request)
+    {
+        $x = 0;
+        $w = true;
+        while ($w) {
+            if (Hash::check($x, $request->x)) {
+                $id = $x;
+                $w = false;
+                break;
+            }
+
+            $x += 1;
+        }
+
+        if (is_null(client_template::where('user_id', $id)->first())) {
+            return view('template_not_exists');
+        } else {
+            $css = [];
+            $js = [];
+            $data = client_template::where('user_id', $id)->first();
+
+            $componen = sub_template_client::where('user_id', $id)->get();
+
+            $js_url  = [];
+            $css_url  = [];
+            if (!is_null($data_css = css_data::where('template_id', $data->template_id)->where('type', 'url')->first())) {
+                $css_url = explode(',', $data_css->file);
+            }
+            if (!is_null($data_js = js_data::where('template_id', $data->template_id)->where('type', 'url')->first())) {
+                $js_url = explode(',', $data_js->file);
+            }
+
+            if (!is_null($data_css = css_data::where('template_id', $data->template_id)->first())) {
+                $css = explode(',', $data_css->file);
+            }
+            if (!is_null($data_js = js_data::where('template_id', $data->template_id)->first())) {
+                $js = explode(',', $data_js->file);
+            }
+            return view('invitation', ["template" => $componen, 'id_rsvp' => $data->id, 'data_css' => $css, 'data_js' => $js, 'data_url_css' => $css_url, 'data_url_js' => $js_url, 'id' => $data->template_id, 'host' => $request->getSchemeAndHttpHost()]);
+        }
+    }
+
+    public function download_format(Request $request)
+    {
+        $file = public_path() . "/format.html";
+        $headers = array('Content-Type: text/html',);
+
+        return Response::download($file, 'format.html', $headers);
     }
 }

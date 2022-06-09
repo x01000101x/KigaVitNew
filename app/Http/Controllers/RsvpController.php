@@ -8,6 +8,9 @@ use App\Models\Client_template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+
+
 class RsvpController extends Controller
 {
     // this page where you can see who has commented and ordered rsvp
@@ -26,5 +29,28 @@ class RsvpController extends Controller
             $dat[] = $v->date;
         }
         return view('responden', ['respon' => $data, 'data' => $solve, 'date' => $dat]);
+    }
+
+    // This is the part where someone responds to the template that has been created
+    public function add_rsvp(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'count' => 'required',
+            'respon' => 'required',
+            'attend' => 'required'
+        ]);
+
+        rsvp::create([
+            'name' => $request->name,
+            'count' => $request->count,
+            'message' => $request->desc,
+            'type' => $request->type,
+            'respon' => $request->respon,
+            'attend' => $request->attend ? 1 : 0,
+            'date' => Carbon::now()->format('Y-m-d')
+        ]);
+
+        return redirect()->back()->with('success', 'rsvp has been added');
     }
 }

@@ -63,6 +63,14 @@ Route::get('/add_category', function () {
 })->name('add_category')->middleware('auth');
 Route::post('/store_category', [AdminController::class, 'store_category'])->name('store_category')->middleware('auth');
 
+// Recipient Invitation
+Route::get('/invitation', [ClientTemplateController::class, 'invitation'])->name('invitation');
+Route::get('/fill_rsvp', function () {
+    return view('fill_rsvp');
+});
+Route::post('/add_rsvp', [Rsvp::class, 'add_rsvp'])->name('add_rsvp');
+Route::get('/download_format', [ClientTemplateController::class, 'download_format'])->name('download_format');
+
 
 
 
