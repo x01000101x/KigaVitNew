@@ -15,10 +15,10 @@
 <body>
 
     <style>
+        .slide {
+            height: 200px;
+        }
 
-.slide{
-    height:200px;
-}
         * {
             padding: 0;
             margin: 0;
@@ -724,7 +724,6 @@
             transform: scale(1);
             transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
         }
-
     </style>
 
 
@@ -745,16 +744,16 @@
         <div>
             <div id="slideshow" style="height: 100%;width:400px;" class="commenctbox">
 
-<div id="slide-container">
+                <div id="slide-container">
 
-    @foreach (\App\Models\rsvp::where('respon', $id_rsvp)->where('type', 'public')->get()
+                    @foreach (\App\Models\Rsvp::where('respon', $id_rsvp)->where('type', 'public')->get()
     as $item)
-                    <div class="slide">
-                        {{ $item->message }}
-                    </div>
-                @endforeach
-                
-</div>
+                        <div class="slide">
+                            {{ $item->message }}
+                        </div>
+                    @endforeach
+
+                </div>
 
             </div>
 
@@ -812,14 +811,6 @@
     </div>
 
 
-
-
-
-
-
-
-
-
     <div id="fullpage">
         @foreach ($template as $item)
             {!! $item->section_code !!}
@@ -839,12 +830,12 @@
                 <center>
                     <h1>Form RSVP</h1>
                 </center>
-                <form action="{{ route('add_rsvp') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('add-rsvp') }}" method="POST" enctype="multipart/form-data">
 
                     @csrf
                     <input type="hidden" name="respon" value="{{ $id_rsvp }}">
                     <div class="row">
-                        <input type="text" name="name" id="fancy-text" required/>
+                        <input type="text" name="name" id="fancy-text" required />
                         <label for="name">Name</label>
                     </div>
                     <div class="row">
@@ -864,7 +855,7 @@
 
                     </div>
                     <div class="row">
-                        <input type="checkbox" name="attend" id="fancy-checkbox" required/>
+                        <input type="checkbox" name="attend" id="fancy-checkbox" required />
                         <label for="fancy-checkbox">Checkbox</label>
                         i will attend to this moment
                     </div>
@@ -1061,38 +1052,40 @@
     </script>
 
     <script>
-       $(document).ready(function () {
-    //you can set this, as long as it's not greater than the slides length
-    var show = 4;
-    //calculate each slides width depending on how many you want to show
-    var w = $('#slider').width() / show;
-    var l = $('.slide').length;
-    
-    //set each slide width
-    $('.slide').width(w);
-    //set the container width to fix the animation and make it look sliding
-    $('#slide-container').width(w * l)
-    
-    function slider() {
-        $('.slide:first-child').animate({
-            marginLeft: -w //hide the first slide on the left
-        }, 'slow', function () {
-            //once completely hidden, move this slide next to the last slide
-            $(this).appendTo($(this).parent()).css({marginLeft: 0});
+        $(document).ready(function() {
+            //you can set this, as long as it's not greater than the slides length
+            var show = 4;
+            //calculate each slides width depending on how many you want to show
+            var w = $('#slider').width() / show;
+            var l = $('.slide').length;
+
+            //set each slide width
+            $('.slide').width(w);
+            //set the container width to fix the animation and make it look sliding
+            $('#slide-container').width(w * l)
+
+            function slider() {
+                $('.slide:first-child').animate({
+                    marginLeft: -w //hide the first slide on the left
+                }, 'slow', function() {
+                    //once completely hidden, move this slide next to the last slide
+                    $(this).appendTo($(this).parent()).css({
+                        marginLeft: 0
+                    });
+                });
+            }
+            //use setInterval to do the timed execution and animation
+            var timer = setInterval(slider, 2000);
+
+            /* pausing the slider */
+            $('#slider').hover(function() {
+                //mouse in, clearinterval to pause
+                clearInterval(timer);
+            }, function() {
+                //mouse out, setinterval to continue
+                timer = setInterval(slider, 2000);
+            });
         });
-    }
-    //use setInterval to do the timed execution and animation
-    var timer = setInterval(slider, 2000);
-    
-    /* pausing the slider */   
-    $('#slider').hover(function(){
-        //mouse in, clearinterval to pause
-        clearInterval(timer);
-    },function(){
-        //mouse out, setinterval to continue
-        timer = setInterval(slider, 2000);
-    });
-});
     </script>
 
     <script>

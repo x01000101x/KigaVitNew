@@ -42,7 +42,6 @@
             /* align-items: center; */
             /* justify-content: center; */
         }
-
     </style>
 </head>
 
@@ -88,7 +87,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('send_email') }}">send bulk email</a></li>
+                            <li><a class="dropdown-item" href="{{ route('send-email') }}">send bulk email</a></li>
                         </ul>
                     </li>
 
@@ -104,7 +103,8 @@
 
                     <li class="nav-item">
 
-                        <a class="btn btn-info" href="add_music/{{ $id }}"> <i class="fas fa-music"></i></a>
+                        <a class="btn btn-info" href="{{ route('add-music', ['id'=>$id ]) }}"> <i
+                                class="fas fa-music"></i></a>
 
                     </li>
 
@@ -144,14 +144,11 @@
     <div id="core" class="owl-carousel owl-theme">
 
         @foreach ($template as $item)
-
-
-            <a style="color:inherit;text-decoration: none;" href="/edit_sub_template/{{ $item->id }}">
+            <a style="color:inherit;text-decoration: none;" href="{{ route('edit-sub-template', ['id'=>$item->id]) }}">
                 <div id="item" class="item">
                     {!! $item->section_code !!}
                 </div>
             </a>
-
         @endforeach
 
     </div>
@@ -242,7 +239,7 @@
                 }
             });
             $.ajax({
-                url: "/new_layer",
+                url: "{{ route('new-layer') }}",
                 method: 'POST',
                 data: {
                     sc: "<section style='background:white;'></section>",
@@ -278,7 +275,7 @@
                             }
                         });
                         $.ajax({
-                            url: "/delete_template",
+                            url: "{{ route('delete-template') }}",
                             method: 'POST',
 
                             success: function(result) {

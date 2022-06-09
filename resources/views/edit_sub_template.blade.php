@@ -409,7 +409,7 @@
                                 <button type="button" onclick="delete_section({{ $sub->id }})"
                                     class="btn btn-danger"> <i class="fas fa-trash-alt"></i> Delete Section</button>
 
-                                <a href="/my_template" class="btn btn-primary"> <i class="fas fa-arrow-left"></i>
+                                <a href="{{ route('my-template') }}" class="btn btn-primary"> <i class="fas fa-arrow-left"></i>
                                 </a>
 
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -657,7 +657,7 @@
                 }
             });
             $.ajax({
-                url: "/update_design",
+                url: "{{ route('update-design') }}",
                 method: 'POST',
                 data: {
                     id: id_s,
@@ -709,7 +709,7 @@
                             }
                         });
                         $.ajax({
-                            url: "/delete_section",
+                            url: "{{ route('delete-section') }}",
                             method: 'POST',
                             data: {
                                 id: id_section,

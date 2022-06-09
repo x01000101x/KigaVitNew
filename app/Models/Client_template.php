@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Client_template extends Model
 {
     protected $table = 'client_templates';
-    protected $fillable = ['user_id', 'template_id', 'music'];
+    protected $fillable = ['user_id', 'template_id', 'music','paid','date'];
     use HasFactory;
 }

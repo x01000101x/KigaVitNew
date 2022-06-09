@@ -15,6 +15,7 @@ use App\Models\Js_data;
 use App\Models\Sub_template;
 use App\Models\Sub_template_client;
 use App\Mail\invitationMail;
+use Carbon\Carbon;
 
 
 
@@ -56,6 +57,8 @@ class ClientTemplateController extends Controller
             Client_template::create([
                 'user_id' => Auth::id(),
                 'template_id' => $id,
+                'paid' => TRUE,
+                'date' => Carbon::now()->toDateString('Y-m-d')
             ]);
         }
 

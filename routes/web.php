@@ -25,60 +25,71 @@ use Illuminate\Support\Facades\Route;
 
 // available dashboard menu menu when you haven't selected a template
 // 1:
+
+
+
+
 Route::get('/', [TemplateController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', [TemplateController::class, 'index'])->name('dashboard');
-Route::get('/category_filter/{id}', [TemplateController::class, 'category_filter'])->name('category_filter');
+
+Route::get('/category-filter/{id}', [TemplateController::class, 'category_filter'])->name('category-filter');
 Route::get('/category', [CategoryController::class, 'category'])->name('category');
-Route::get('/bookmarks', [BookmarkController::class, 'bookmarks'])->name('bookmarks')->middleware('auth');
-Route::get('/add_bookmarks/{id}', [BookmarkController::class, 'add_bookmarks'])->name('add_bookmarks')->middleware('auth');
-Route::get('/delete_bookmarks/{id}', [BookmarkController::class, 'delete_bookmarks'])->name('delete_bookmarks')->middleware('auth');
-Route::get('/like_template/{id}', [LikeTemplateController::class, 'like_template'])->name('like_template')->middleware('auth');
 
-// when you have selected a template, this route will be available
-// 2:
-Route::get('/template_details/{id}', [TemplateController::class, 'details'])->middleware('auth');
-Route::get('/edit_template/{id}', [ClientTemplateController::class, 'edit_template'])->middleware('auth');
-Route::get('/edit_sub_template/{id}', [SubTemplateClientController::class, 'edit_sub_template'])->middleware('auth');
-Route::get('/my_template', [ClientTemplateController::class, 'my_template'])->name('my_template')->middleware('auth');
-Route::post('/select_template/{id}', [ClientTemplateController::class, 'select_template'])->name('select-template')->middleware('auth');
-Route::post('/new_layer', [SubTemplateClientController::class, 'new_layer'])->middleware('auth');
-Route::post('/delete_template', [ClientTemplateController::class, 'delete_template'])->middleware('auth');
-Route::post('/in_music', [ClientTemplateController::class, 'in_music'])->middleware('auth');
-Route::post('/update_design', [SubTemplateClientController::class, 'update_design'])->middleware('auth');
-Route::get('/responden', [Rsvp::class, 'responden'])->name('responden');
-Route::post('/delete_section', [SubTemplateClientController::class, 'delete_section'])->name('delete_section');
-Route::get('/add_music/{id}', [ClientTemplateController::class, 'add_music'])->name('add_music');
-Route::get('/send_email', [ClientTemplateController::class, 'send_email'])->name('send_email')->middleware('auth');
-Route::post('/send_bulk_email', [ClientTemplateController::class, 'send_bulk_email'])->name('send_bulk_email')->middleware('auth');
 
-// Admin Route
-// 3
-Route::get('/create_template', function () {
-    return view('add_template');
-})->middleware('auth');
-Route::post('/create_template', [AdminController::class, 'add_template'])->name('create_template')->middleware('auth');
-Route::get('/user_list', [AdminController::class, 'user_list'])->name('user_list')->middleware('auth');
-Route::get('/add_category', function () {
-    return view('add_category');
-})->name('add_category')->middleware('auth');
-Route::post('/store_category', [AdminController::class, 'store_category'])->name('store_category')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/bookmarks', [BookmarkController::class, 'bookmarks'])->name('bookmarks');
+    Route::get('/add-bookmarks/{id}', [BookmarkController::class, 'add_bookmarks'])->name('add-bookmarks');
+    Route::get('/delete-bookmarks/{id}', [BookmarkController::class, 'delete_bookmarks'])->name('delete-bookmakrs');
+    Route::get('/like-template/{id}', [LikeTemplateController::class, 'like_template'])->name('like-template');
 
-// Recipient Invitation
-Route::get('/invitation', [ClientTemplateController::class, 'invitation'])->name('invitation');
-Route::get('/fill_rsvp', function () {
-    return view('fill_rsvp');
+
+    // when you have selected a template, this route will be available
+    // 2:
+    Route::get('/template-details/{id}', [TemplateController::class, 'details'])->name('template-details');
+    Route::get('/edit-template/{id}', [ClientTemplateController::class, 'edit_template'])->name('edit-template');
+    Route::get('/edit-sub-template/{id}', [SubTemplateClientController::class, 'edit_sub_template'])->name('edit-sub-template');
+    Route::get('/my-template', [ClientTemplateController::class, 'my_template'])->name('my-template');
+    Route::post('/select-template/{id}', [ClientTemplateController::class, 'select_template'])->name('select-template');
+    Route::post('/new-layer', [SubTemplateClientController::class, 'new_layer'])->name('new-layer');
+    Route::post('/delete-template', [ClientTemplateController::class, 'delete_template'])->name('delete-template');
+    Route::post('/in-music', [ClientTemplateController::class, 'in_music'])->name('in-music');
+    Route::post('/update-design', [SubTemplateClientController::class, 'update_design'])->name('update-design');
+    Route::post('/delete-section', [SubTemplateClientController::class, 'delete_section'])->name('delete-section');
+    Route::get('/add-music/{id}', [ClientTemplateController::class, 'add_music'])->name('add-music');
+    Route::get('/send-email', [ClientTemplateController::class, 'send_email'])->name('send-email');
+    Route::post('/send-bulk-email', [ClientTemplateController::class, 'send_bulk_email'])->name('send-bulk-email');
+    Route::get('/responden', [Rsvp::class, 'responden'])->name('responden');
+
+
+
+    // Admin Route
+    // 3
+    Route::get('/create-template', function () {
+        return view('add_template');
+    })->name('create-template');
+
+    Route::get('/create-category', function () {
+        return view('add_category');
+    })->name('create-category');
+
+    Route::post('/store-template', [AdminController::class, 'add_template'])->name('store-template');
+    Route::post('/store-category', [AdminController::class, 'store_category'])->name('store-category');
+
+    Route::get('/user-list', [AdminController::class, 'user_list'])->name('user-list');
+
+
+    // Recipient Invitation
+    Route::get('/invitation', [ClientTemplateController::class, 'invitation'])->name('invitation');
+    Route::get('/fill-rsvp', function () {
+        return view('fill_rsvp');
+    })->name('fill-rsvp');
+    Route::post('/add-rsvp', [Rsvp::class, 'add_rsvp'])->name('add-rsvp');
+    Route::get('/download-format', [ClientTemplateController::class, 'download_format'])->name('download-format');
+
 });
-Route::post('/add_rsvp', [Rsvp::class, 'add_rsvp'])->name('add_rsvp');
-Route::get('/download_format', [ClientTemplateController::class, 'download_format'])->name('download_format');
 
 
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
