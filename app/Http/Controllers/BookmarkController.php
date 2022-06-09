@@ -4,82 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    // add a bookmarks template for user
+    public function bookmarks(Request $request)
     {
-        //
+        $template = Bookmark::where('user_id', Auth::id())->get();
+        return view('bookmarks', ['template' => $template]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    //post add bookmarks
+    public function add_bookmarks(Request $request, $id)
     {
-        //
+        Bookmark::create([
+            'user_id' => Auth::id(),
+            'template_id' => $id
+        ]);
+        return redirect()->back()->with('success', 'added to your bookmarks !');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    //delete bookmarks
+    public function delete_bookmarks(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bookmark  $bookmark
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bookmark $bookmark)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Bookmark  $bookmark
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Bookmark $bookmark)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bookmark  $bookmark
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Bookmark $bookmark)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Bookmark  $bookmark
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Bookmark $bookmark)
-    {
-        //
+        Bookmark::where('id', $id)->delete();
+        return redirect()->back()->with('success', 'bookmarks deleted !');
     }
 }
