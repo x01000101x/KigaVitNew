@@ -9,6 +9,10 @@ use App\Models\Css_data;
 use App\Models\Js_data;
 use App\Models\Sub_template;
 use App\Models\Sub_template_client;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\invitationMail;
+
+
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -82,5 +86,27 @@ class ClientTemplateController extends Controller
         $temp->music = $request->music;
         $temp->save();
         return response()->json(['success' => 'add music successfully']);
+    }
+
+    // add music to your template ?
+    public function add_music($id)
+    {
+        return view('add_music', ['id' => $id]);
+    }
+
+    public function send_email(Request $request)
+    {
+        return view('send_mail');
+    }
+
+    public function send_bulk_email(Request $request)
+    {
+
+        // dd($request->mail);
+        foreach ($request->mail as $key => $value) {
+            Mail::to($value)->send(new invitationMail());
+        }
+
+        return redirect()->route('send_email')->with(['success' => 'email has been send !']);
     }
 }

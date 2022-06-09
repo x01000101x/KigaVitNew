@@ -61,4 +61,10 @@ class SubTemplateClientController extends Controller
         Sub_template_client::where('id', $request->id)->update(['section_code' => $request->sc]);
         return response()->json(['success' => 'Saved']);
     }
+
+    public function delete_section(Request $request)
+    {
+        sub_template_client::where('id', $request->id)->delete();
+        return response()->json(['success' => 'section has been deleted']);
+    }
 }

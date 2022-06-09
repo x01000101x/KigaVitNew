@@ -46,10 +46,10 @@ Route::post('/delete_template', [ClientTemplateController::class, 'delete_templa
 Route::post('/in_music', [ClientTemplateController::class, 'in_music'])->middleware('auth');
 Route::post('/update_design', [SubTemplateClientController::class, 'update_design'])->middleware('auth');
 Route::get('/responden', [Rsvp::class, 'responden'])->name('responden');
-Route::post('/delete_section', [invitController::class, 'delete_section'])->name('delete_section');
-Route::get('/add_music/{id}', [invitController::class, 'add_music'])->name('add_music');
-Route::get('/send_email', [invitController::class, 'send_email'])->name('send_email')->middleware('auth');
-Route::post('/send_bulk_email', [invitController::class, 'send_bulk_email'])->name('send_bulk_email')->middleware('auth');
+Route::post('/delete_section', [SubTemplateClientController::class, 'delete_section'])->name('delete_section');
+Route::get('/add_music/{id}', [ClientTemplateController::class, 'add_music'])->name('add_music');
+Route::get('/send_email', [ClientTemplateController::class, 'send_email'])->name('send_email')->middleware('auth');
+Route::post('/send_bulk_email', [ClientTemplateController::class, 'send_bulk_email'])->name('send_bulk_email')->middleware('auth');
 
 // Admin Route
 // 3
