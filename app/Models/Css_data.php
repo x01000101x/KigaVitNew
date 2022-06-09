@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Css_data extends Model
 {
+    protected $table = 'css_data';
+    protected $fillable = ['template_id', 'type', 'file'];
     use HasFactory;
 }

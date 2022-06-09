@@ -10,14 +10,14 @@ class TemplateController extends Controller
 
     public function index()
     {
-        $template = template::paginate(50);
+        $template = Template::paginate(50);
         $filter = null;
         return view('dashboard', ['template' => $template, 'filter' => $filter]);
     }
 
     public function category_filter(Request $request, $id)
     {
-        $category = template::where('category', $id)->get();
+        $category = Template::where('category', $id)->get();
         return view('dashboard', ['template' => $category, 'filter' => $id]);
     }
 }

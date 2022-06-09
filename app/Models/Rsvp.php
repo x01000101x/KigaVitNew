@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rsvp extends Model
 {
+    protected $table = "rsvp";
+    protected $fillable = ['name', 'type', 'message', 'count', 'respon', 'attend', 'date'];
     use HasFactory;
 }
