@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [TemplateController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [TemplateController::class, 'index'])->name('dashboard');
 Route::get('/category_filter/{id}', [TemplateController::class, 'category_filter'])->name('category_filter');
+Route::get('/category', [CategoryController::class, 'category'])->name('category');
+
+
 
 
 // Route::get('/', function () {
