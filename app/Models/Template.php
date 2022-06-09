@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Template extends Model
 {
-    protected $table = "template";
+    protected $table = "templates";
     protected $fillable = ['title', 'price', 'author', 'description', 'category', 'premium', 'thumb'];
     use HasFactory;
 }
