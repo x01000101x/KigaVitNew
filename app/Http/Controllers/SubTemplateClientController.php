@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client_template;
 use App\Models\Css_data;
 use App\Models\Js_data;
 use App\Models\Sub_template_client;
@@ -11,6 +12,19 @@ use Illuminate\Support\Facades\Auth;
 
 class SubTemplateClientController extends Controller
 {
+    // this section to create a new sub_template
+    public function new_layer(Request $request)
+    {
+        $resource = Client_template::where('user_id', Auth::id())->first();
+        sub_template_client::create([
+            'user_id' => Auth::id(),
+            'resource_id' => $resource->template_id,
+            'section_code' => $request->sc
+
+        ]);
+        return response()->json(['success' => 'New layer has been created']);
+    }
+
     public function edit_sub_template(Request $request, $id)
     {
         $css = [];

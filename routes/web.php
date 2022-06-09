@@ -38,8 +38,8 @@ Route::get('/template_details/{id}', [TemplateController::class, 'details'])->mi
 Route::get('/edit_template/{id}', [ClientTemplateController::class, 'edit_template'])->middleware('auth');
 Route::get('/edit_sub_template/{id}', [SubTemplateClientController::class, 'edit_sub_template'])->middleware('auth');
 Route::get('/my_template', [ClientTemplateController::class, 'my_template'])->name('my_template')->middleware('auth');
-Route::post('/select_template/{id}', [invitController::class, 'select_template'])->name('select-template')->middleware('auth');
-Route::post('/new_layer', [invitController::class, 'new_layer'])->middleware('auth');
+Route::post('/select_template/{id}', [ClientTemplateController::class, 'select_template'])->name('select-template')->middleware('auth');
+Route::post('/new_layer', [SubTemplateClientController::class, 'new_layer'])->middleware('auth');
 Route::post('/delete_template', [invitController::class, 'delete_template'])->middleware('auth');
 Route::post('/in_music', [invitController::class, 'in_music'])->middleware('auth');
 Route::post('/update_design', [invitController::class, 'update_design'])->middleware('auth');
