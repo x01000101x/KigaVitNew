@@ -170,7 +170,7 @@
                 </div>
                 <select name="category" class="custom-select" id="inputGroupSelect01" required>
                     <option selected>Choose...</option>
-                    @foreach (App\Models\category::all() as $category)
+                    @foreach (App\Models\Category::all() as $category)
                         <option value="{{ $category->slug }}">{{ $category->category }}</option>
                     @endforeach
 

@@ -1,5 +1,7 @@
 <?php
-
+//Admin Controllers
+use App\Http\Controllers\AdminController;
+//OtherControllers
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LikeTemplateController;
@@ -34,12 +36,12 @@ Route::get('/like_template/{id}', [LikeTemplateController::class, 'like_template
 Route::get('/create_template', function () {
     return view('add_template');
 })->middleware('auth');
-Route::post('/create_template', [invitController::class, 'add_template'])->name('create_template')->middleware('auth');
-Route::get('/user_list', [invitController::class, 'user_list'])->name('user_list')->middleware('auth');
+Route::post('/create_template', [AdminController::class, 'add_template'])->name('create_template')->middleware('auth');
+Route::get('/user_list', [AdminController::class, 'user_list'])->name('user_list')->middleware('auth');
 Route::get('/add_category', function () {
     return view('add_category');
 })->name('add_category')->middleware('auth');
-Route::post('/store_category', [invitController::class, 'store_category'])->name('store_category')->middleware('auth');
+Route::post('/store_category', [AdminController::class, 'store_category'])->name('store_category')->middleware('auth');
 
 
 

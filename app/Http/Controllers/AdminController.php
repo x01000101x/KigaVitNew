@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
+//Models
 use App\Models\Template;
 use App\Models\Sub_template;
 use App\Models\Css_data;
 use App\Models\Js_data;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Category;
 
 
 class AdminController extends Controller
@@ -138,5 +142,43 @@ class AdminController extends Controller
             ]);
         }
         return redirect()->back()->with('success', 'template has been created');
+    }
+
+    public function user_list()
+    {
+        $user = User::all();
+        return view('user_list', ['user' => $user]);
+    }
+
+    // add category (admin)
+    public function store_category(Request $request)
+    {
+        $request->validate([
+            'category' => 'required',
+            'description' => 'required',
+
+        ]);
+        if (is_null($request->thumb)) {
+            Category::create([
+                'category' => $request->category,
+                'slug' => Str::slug($request->category, '_'),
+                'description' => $request->description,
+            ]);
+        } else {
+            $thumb = $request->file('thumb');
+            $thumbname = time() . "_" . $thumb->getClientOriginalName();
+
+
+            $thumb->move(public_path() . '/thumb_category' . '/', $thumbname);
+
+            Category::create([
+                'category' => $request->category,
+                'description' => $request->description,
+                'slug' => Str::slug($request->category, '_'),
+                'thumb' => $thumbname
+
+            ]);
+        }
+        return redirect()->back()->with('success', 'category has been created');
     }
 }
