@@ -3,83 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like_template;
+use App\Models\Template;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LikeTemplateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    // like template
+    public function like_template(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Like_template  $like_template
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Like_template $like_template)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Like_template  $like_template
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Like_template $like_template)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Like_template  $like_template
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Like_template $like_template)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Like_template  $like_template
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Like_template $like_template)
-    {
-        //
+        if ($like_temp = Like_template::where('user_id', Auth::id())->where('template_id', $id)->exists()) {
+            Like_template::where('user_id', Auth::id())->where('template_id', $id)->delete();
+            $tp = Template::where('id', $id)->first();
+            $tp->rate -= 1;
+            $tp->save();
+            return redirect()->back()->with('success', 'delete love :(');
+        } else {
+            Like_template::create([
+                'user_id' => Auth::id(),
+                'template_id' => $id
+            ]);
+            $tp = Template::where('id', $id)->first();
+            $tp->rate += 1;
+            $tp->save();
+            return redirect()->back()->with('success', 'loved !');
+        }
     }
 }
