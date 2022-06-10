@@ -51,6 +51,6 @@ class RsvpController extends Controller
             'date' => Carbon::now()->format('Y-m-d')
         ]);
 
-        return redirect()->back()->with('success', 'rsvp has been added');
+        return redirect()->back()->with(['message'=> 'Success RSVP has been added','status'=>'success']);
     }
 }

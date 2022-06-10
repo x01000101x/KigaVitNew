@@ -25,37 +25,53 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @if (Auth::user()->role == 1)
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('my-template') }}">My
-                                Template</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('create-template') }}">Create
-                                Template</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('category') }}">
-                                Category</a>
-                        </li>
+                    @if (Auth::check())
+                        @if (Auth::user()->role == 1)
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                    href="{{ route('dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ route('my-template') }}">My
+                                    Template</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page"
+                                    href="{{ route('create-template') }}">Create
+                                    Template</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ route('category') }}">
+                                    Category</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('create-category') }}">Create
-                                Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('user-list') }}">User List</a>
-                        </li>
-
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page"
+                                    href="{{ route('create-category') }}">Create
+                                    Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ route('user-list') }}">User
+                                    List</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                    href="{{ route('dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ route('my-template') }}">My
+                                    Template</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ route('category') }}">
+                                    Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ route('bookmarks') }}">
+                                    Bookmarks</a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
                 <div class="d-flex">
