@@ -6,6 +6,7 @@ use App\Http\Controllers\{
     CategoryController,
     ClientTemplateController,
     LikeTemplateController,
+    SendEmail,
     SubTemplateClientController,
     TemplateController
 };
@@ -38,17 +39,25 @@ Route::get('/category-filter/{id}', [TemplateController::class, 'category_filter
 Route::get('/category', [CategoryController::class, 'category'])->name('category');
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
-Route::get('/send_mail', function () {
+Route::post('/go_email', [SendEmail::class, 'send'])->name('send_email');
+Route::get('/go_email', [SendEmail::class, 'back']);
+// $body = [
+//     'title' => $data['title'],
+//     'body' => 'Hallo Gan'
+// ];
+Route::get('/send_mail', [SendEmail::class, 'index'])->name('send_mail');
 
-    $details = [
-        'title' => 'Mail from Startcode',
-        'body' => 'Hallo Gan'
-    ];
+// Route::get('/send_mail', function () {
 
-    Mail::to('leonarddamanik7@gmail.com')->send(new \App\Mail\SendMail($details));
+//     $details = [
+//         'title' => 'Mail from Startcode',
+//         'body' => 'Hallo Gan'
+//     ];
 
-    dd("Sent.");
-});
+//     Mail::to('leonarddamanik7@gmail.com')->send(new \App\Mail\SendMail($details));
+
+//     dd("Sent.");
+// });
 
 
 Route::middleware(['auth'])->group(function () {
@@ -72,7 +81,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/delete-section', [SubTemplateClientController::class, 'delete_section'])->name('delete-section');
     Route::get('/add-music/{id}', [ClientTemplateController::class, 'add_music'])->name('add-music');
     Route::get('/send-email', [ClientTemplateController::class, 'send_email'])->name('send-email');
-    Route::post('/send-bulk-email', [ClientTemplateController::class, 'send_bulk_email'])->name('send-bulk-email');
+    // Route::post('/send-bulk-email', [ClientTemplateController::class, 'send_bulk_email'])->name('send-bulk-email');
     Route::get('/responden', [Rsvp::class, 'responden'])->name('responden');
 
 

@@ -87,7 +87,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('send-email') }}">send bulk email</a></li>
+                            <li><a class="dropdown-item" href="{{ route('send_mail') }}">send bulk email</a></li>
                         </ul>
                     </li>
 

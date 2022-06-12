@@ -1,21 +1,24 @@
 <?php
 
-namespace App\Mail;
+namespace App\Jobs;
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
-class SendMail extends Mailable
+
+class SendMail implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $data, $email;
 
     /**
-     * Create a new message instance.
+     * Create a new job instance.
      *
      * @return void
      */
@@ -26,28 +29,25 @@ class SendMail extends Mailable
     }
 
     /**
-     * Build the message.
+     * Execute the job.
      *
-     * @return $this
+     * @return void
      */
-    public function build()
+    public function handle()
     {
 
-        dd($this->email);
+
+        // dd($this->email);
         Mail::send(
-            'mail.confirm',
+            'mail_subject',
             [
                 'title' => $this->data['title'],
                 'body' => $this->data['body'],
             ],
             function ($message) {
-                $message->from('no-reply@testmail.com', 'Test Notification');
+                $message->from('no-reply@testmail.com', $this->data['title']);
                 $message->to($this->email)->subject($this->data['subject']);
             }
         );
-
-        // return $this->subject($subjects)
-        //     ->view('mail_send');
-
     }
 }
