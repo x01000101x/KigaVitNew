@@ -10,7 +10,9 @@
         <div class="d-flex justify-content-center">
             @foreach ($category as $item)
                 <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="{{ url('/thumb_category/' . $item->thumb) }}" class="card-img-top" alt="...">
+
+                    {{-- {{ dd(url('/thumb/' . $item->thumb)) }} --}}
                     <div class="card-body">
                         <h5 class="card-title">{{ $item->category }}</h5>
 
