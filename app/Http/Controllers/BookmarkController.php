@@ -22,13 +22,13 @@ class BookmarkController extends Controller
             'user_id' => Auth::id(),
             'template_id' => $id
         ]);
-        return redirect()->back()->with('success', 'added to your bookmarks !');
+        return redirect()->back()->with(['message'=>'Horee added to your bookmakrs','status'=>'success']);
     }
 
     //delete bookmarks
     public function delete_bookmarks(Request $request, $id)
     {
         Bookmark::where('id', $id)->delete();
-        return redirect()->back()->with('success', 'bookmarks deleted !');
+        return redirect()->back()->with(['message'=>'Yahh bookmakrs deleted','status'=>'success']);
     }
 }

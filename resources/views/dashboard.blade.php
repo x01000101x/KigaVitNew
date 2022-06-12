@@ -46,15 +46,15 @@
                                 @if (\App\Models\Bookmark::where(['template_id' => $item->id, 'user_id' => Auth::user()->id])->exists())
                                     <button type="button" class="btn btn-info"><i class="fas fa-bookmark"></i></button>
                                 @else
-                                    <a href="add_bookmarks/{{ $item->id }}" class="btn btn-info"><i
+                                    <a href="{{ route('add-bookmarks', ['id'=> $item->id ]) }}" class="btn btn-info"><i
                                             class="far fa-bookmark"></i></a>
                                 @endif
 
                                 @if (\App\Models\Like_template::where(['template_id' => $item->id, 'user_id' => Auth::user()->id])->exists())
-                                    <a href="like_template/{{ $item->id }}" class="btn btn-danger"><i
+                                    <a href="{{ route('like-template', ['id'=>$item->id]) }}" class="btn btn-danger"><i
                                             class="fas fa-heart"></i></a>
                                 @else
-                                    <a href="like_template/{{ $item->id }}" class="btn btn-danger"><i
+                                    <a href="{{ route('like-template', ['id'=>$item->id]) }}" class="btn btn-danger"><i
                                             class="far fa-heart"></i></a>
                                 @endif
                             @endif

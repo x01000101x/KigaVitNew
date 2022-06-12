@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.base')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404 Not Found</title>
-</head>
 
-<body>
-    <style>
-        body {
-            background: #f1e2dd;
-        }
-
-    </style>
-    <br>
-    <center>
-        <h1>Template not exists :(</h1>
-    </center>
-
-</body>
-
-</html>
+@section('content')
+    <center><h2>Template Not exits</h2></center>
+@endsection

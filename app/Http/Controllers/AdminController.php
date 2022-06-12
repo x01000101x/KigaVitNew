@@ -141,7 +141,7 @@ class AdminController extends Controller
                 'file' => $request->js_url
             ]);
         }
-        return redirect()->back()->with('success', 'template has been created');
+        return redirect()->back()->with(['message'=>'Success adding a new template.','status'=>'success']);
     }
 
     public function user_list()
@@ -179,6 +179,6 @@ class AdminController extends Controller
 
             ]);
         }
-        return redirect()->back()->with('success', 'category has been created');
+        return redirect()->back()->with(['message'=>'Success adding a new category.','status'=>'success']);
     }
 }

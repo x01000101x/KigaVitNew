@@ -17,7 +17,7 @@ class LikeTemplateController extends Controller
             $tp = Template::where('id', $id)->first();
             $tp->rate -= 1;
             $tp->save();
-            return redirect()->back()->with('success', 'delete love :(');
+            return redirect()->back()->with(['message'=> 'Loved has been deleted','status'=>'success']);
         } else {
             Like_template::create([
                 'user_id' => Auth::id(),
@@ -26,7 +26,7 @@ class LikeTemplateController extends Controller
             $tp = Template::where('id', $id)->first();
             $tp->rate += 1;
             $tp->save();
-            return redirect()->back()->with('success', 'loved !');
+            return redirect()->back()->with(['message'=> 'Loved !','status'=>'success']);
         }
     }
 }

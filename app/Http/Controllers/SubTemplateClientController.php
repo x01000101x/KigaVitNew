@@ -22,7 +22,7 @@ class SubTemplateClientController extends Controller
             'section_code' => $request->sc
 
         ]);
-        return response()->json(['success' => 'New layer has been created']);
+        return response()->json(['message'=> 'New page has been added to your template','status'=>'success']);
     }
 
     public function edit_sub_template(Request $request, $id)
@@ -59,12 +59,12 @@ class SubTemplateClientController extends Controller
     public function update_design(Request $request)
     {
         Sub_template_client::where('id', $request->id)->update(['section_code' => $request->sc]);
-        return response()->json(['success' => 'Saved']);
+        return response()->json(['message'=> 'Your changes has been saved','status'=>'success']);
     }
 
     public function delete_section(Request $request)
     {
         sub_template_client::where('id', $request->id)->delete();
-        return response()->json(['success' => 'section has been deleted']);
+        return response()->json(['message'=> 'Section has been deleted','status'=>'success']);
     }
 }

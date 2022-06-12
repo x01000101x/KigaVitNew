@@ -355,11 +355,18 @@
 
 
     @if (is_null(\App\Models\Client_template::where(['user_id' => Auth::user()->id])->first()))
-
-        <button class="accept" type="submit"
-            style="border-radius: 20px;position: absolute;display: fixed;z-index: 99;margin:20px;padding:10px;" id="btn"
-            data-bs-toggle="modal" data-bs-target="#exampleModal">Select this template !</button>
-
+        @if ($base_template->premium == 1)
+            <button class="accept" type="submit"
+                style="border-radius: 20px;position: absolute;display: fixed;z-index: 99;margin:20px;padding:10px;"
+                id="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Select this template !</button>
+        @else
+            <form id="form-select" action="{{ route('select-template', ['id' => $base_template->id]) }}" method="post">
+                @csrf
+                <button id="select-this" class="accept"
+                    style="border-radius: 20px;position: absolute;display: fixed;z-index: 99;margin:20px;padding:10px;">Select
+                    this template !</button>
+            </form>
+        @endif
     @else
         <a class="cancel" href="{{ route('my_template') }}"
             style="border-radius: 20px;position: absolute;display: fixed;z-index: 99;margin:20px;padding:10px;text-decoration:none;"
@@ -396,7 +403,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('section').addClass('vertical-scrolling');
@@ -508,75 +515,98 @@
 
 
 
+    @if ($base_template->premium == 1)
+        <script>
+            paypal.Buttons({
 
-    <script>
-        paypal.Buttons({
-
-            createOrder: function(data, actions) {
+                createOrder: function(data, actions) {
 
 
-                return actions.order.create({
-                    "item": [{
-                        "name": "xdf",
-                    }],
-                    "purchase_units": [{
-                            "reference_id": id,
-                            "amount": {
+                    return actions.order.create({
+                        "item": [{
+                            "name": "xdf",
+                        }],
+                        "purchase_units": [{
+                                "reference_id": id,
+                                "amount": {
 
-                                "currency_code": "USD",
-                                "value": @json($base_template->price),
+                                    "currency_code": "USD",
+                                    "value": @json($base_template->price),
+
+                                }
 
                             }
 
-                        }
-
-                    ],
-
-
-                });
-
-            },
-
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        url: '/select-template/' + id,
-                        type: 'POST',
-                        dataType: "JSON",
-                        data: {},
-                        processData: false,
-                        contentType: false,
-                        success: function(data, status) {
-                            console.log('success');
-                            window.location.href = "/my-template";
-
-
-                        },
-                        error: function(xhr, desc, err) {
-                            console.log('err');
-                            window.location.href = "/my-template";
-
-                        }
-
+                        ],
 
 
                     });
 
+                },
+
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: '/select-template/' + id,
+                            type: 'POST',
+                            dataType: "JSON",
+                            data: {},
+                            processData: false,
+                            contentType: false,
+                            success: function(data, status) {
+                                console.log('success');
+                                window.location.href = "/my-template";
+
+
+                            },
+                            error: function(xhr, desc, err) {
+                                console.log('err');
+                                window.location.href = "/my-template";
+
+                            }
 
 
 
-                });
-                window.location.href = "/my-template";
+                        });
 
-            }
 
-        }).render('#paypal-button-container');
+
+
+                    });
+                    window.location.href = "/my-template";
+
+                }
+
+            }).render('#paypal-button-container');
+        </script>
+    @endif
+
+    <script>
+        $("#select-this").on("click", function(e) {
+
+            e.preventDefault(); //to prevent submitting
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: `Don't save`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    Swal.fire('Saved!', '', 'success')
+                    $('#form-select').submit();
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                }
+            })
+        });
     </script>
 
 </body>

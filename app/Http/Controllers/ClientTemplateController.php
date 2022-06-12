@@ -76,7 +76,7 @@ class ClientTemplateController extends Controller
             }
         }
 
-        return redirect('my_template')->with('success', 'template has been selected');
+        return redirect()->route('my-template')->with(['message'=> 'Yeayyy template has been selected','status'=>'success']);
     }
 
     public function delete_template(Request $request)
@@ -84,7 +84,7 @@ class ClientTemplateController extends Controller
         Client_template::where('user_id', Auth::id())->delete();
         Sub_template_client::where('user_id', Auth::id())->delete();
 
-        return redirect('/')->with('template_has been deleted');
+        return redirect('/')->with(['message'=> 'Yahh Template has been deleted','status'=>'success']);
     }
 
     public function in_music(Request $request)
@@ -92,7 +92,7 @@ class ClientTemplateController extends Controller
         $temp = Client_template::where('user_id', Auth::id())->first();
         $temp->music = $request->music;
         $temp->save();
-        return response()->json(['success' => 'add music successfully']);
+        return response()->json(['message'=> 'Yeayyy music has been selected','status'=>'success']);
     }
 
     // add music to your template ?
@@ -108,8 +108,6 @@ class ClientTemplateController extends Controller
 
     public function send_bulk_email(Request $request)
     {
-
-        // dd($request->mail);
         foreach ($request->mail as $key => $value) {
             Mail::to($value)->send(new invitationMail());
         }
