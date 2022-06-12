@@ -35,6 +35,7 @@ Route::get('/dashboard', [TemplateController::class, 'index'])->name('dashboard'
 
 Route::get('/category-filter/{id}', [TemplateController::class, 'category_filter'])->name('category-filter');
 Route::get('/category', [CategoryController::class, 'category'])->name('category');
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -68,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-template', function () {
         return view('add_template');
     })->name('create-template');
+
 
     Route::get('/create-category', function () {
         return view('add_category');

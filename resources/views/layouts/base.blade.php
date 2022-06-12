@@ -81,6 +81,10 @@
 
                         @auth
                             <a href="{{ route('dashboard') }}" class="btn btn-outline-info">Dashboard</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button class="btn btn-danger" type="submit">Logout</button>
+                         </form>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-outline-info me-2">Login</a>
                             @if (Route::has('register'))
@@ -88,6 +92,8 @@
                             @endif
                         @endauth
                     @endif
+
+
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
         </center>
         <br>
         <br>
-        <form action="{{ route('create-template') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('store-template') }}" method="POST" enctype="multipart/form-data">
 
             @csrf
             <div class="input-group mb-3">

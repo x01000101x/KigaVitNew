@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 //Models
@@ -182,5 +183,11 @@ class AdminController extends Controller
             ]);
         }
         return redirect()->back()->with(['message' => 'Success adding a new category.', 'status' => 'success']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 }
