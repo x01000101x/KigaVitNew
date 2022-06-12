@@ -17,6 +17,6 @@ class Controller extends BaseController
     {
         $this->user = Auth::user();
 
-        view()->share('user', $this->user);
+        view()->share('layouts/base', $this->user);
     }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client_template;
-use App\Models\Css_data;
-use App\Models\Js_data;
-use App\Models\Sub_template_client;
+//Models
+use App\Models\{
+    Client_template,
+    Css_data,
+    Js_data,
+    Sub_template_client
+};
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +25,7 @@ class SubTemplateClientController extends Controller
             'section_code' => $request->sc
 
         ]);
-        return response()->json(['message'=> 'New page has been added to your template','status'=>'success']);
+        return response()->json(['message' => 'New page has been added to your template', 'status' => 'success']);
     }
 
     public function edit_sub_template(Request $request, $id)
@@ -59,12 +62,12 @@ class SubTemplateClientController extends Controller
     public function update_design(Request $request)
     {
         Sub_template_client::where('id', $request->id)->update(['section_code' => $request->sc]);
-        return response()->json(['message'=> 'Your changes has been saved','status'=>'success']);
+        return response()->json(['message' => 'Your changes has been saved', 'status' => 'success']);
     }
 
     public function delete_section(Request $request)
     {
         sub_template_client::where('id', $request->id)->delete();
-        return response()->json(['message'=> 'Section has been deleted','status'=>'success']);
+        return response()->json(['message' => 'Section has been deleted', 'status' => 'success']);
     }
 }

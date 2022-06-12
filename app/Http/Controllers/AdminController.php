@@ -7,12 +7,14 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 //Models
-use App\Models\Template;
-use App\Models\Sub_template;
-use App\Models\Css_data;
-use App\Models\Js_data;
-use App\Models\User;
-use App\Models\Category;
+use App\Models\{
+    Template,
+    Sub_template,
+    Css_data,
+    Js_data,
+    User,
+    Category
+};
 
 
 class AdminController extends Controller
@@ -141,7 +143,7 @@ class AdminController extends Controller
                 'file' => $request->js_url
             ]);
         }
-        return redirect()->back()->with(['message'=>'Success adding a new template.','status'=>'success']);
+        return redirect()->back()->with(['message' => 'Success adding a new template.', 'status' => 'success']);
     }
 
     public function user_list()
@@ -179,6 +181,6 @@ class AdminController extends Controller
 
             ]);
         }
-        return redirect()->back()->with(['message'=>'Success adding a new category.','status'=>'success']);
+        return redirect()->back()->with(['message' => 'Success adding a new category.', 'status' => 'success']);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rsvp;
-use App\Models\Client_template;
+//Models
+use App\Models\{Rsvp, Client_template};
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +51,6 @@ class RsvpController extends Controller
             'date' => Carbon::now()->format('Y-m-d')
         ]);
 
-        return redirect()->back()->with(['message'=> 'Success RSVP has been added','status'=>'success']);
+        return redirect()->back()->with(['message' => 'Success RSVP has been added', 'status' => 'success']);
     }
 }

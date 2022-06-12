@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Css_data;
-use App\Models\Js_data;
-use App\Models\Sub_template;
-use App\Models\Template;
+//Models
+use App\Models\{
+    Css_data,
+    Js_data,
+    Sub_template,
+    Template
+};
+
+
 use Illuminate\Http\Request;
 
 class TemplateController extends Controller

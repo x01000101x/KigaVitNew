@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\{
+    Hash,
+    Auth,
+    Mail,
+    Response
+};
 
 use App\Models\{
     Client_template,
@@ -18,6 +19,7 @@ use App\Models\{
 };
 
 
+use Illuminate\Http\Request;
 use App\Mail\invitationMail;
 use Carbon\Carbon;
 
@@ -76,7 +78,7 @@ class ClientTemplateController extends Controller
             }
         }
 
-        return redirect()->route('my-template')->with(['message'=> 'Yeayyy template has been selected','status'=>'success']);
+        return redirect()->route('my-template')->with(['message' => 'Yeayyy template has been selected', 'status' => 'success']);
     }
 
     public function delete_template(Request $request)
@@ -84,7 +86,7 @@ class ClientTemplateController extends Controller
         Client_template::where('user_id', Auth::id())->delete();
         Sub_template_client::where('user_id', Auth::id())->delete();
 
-        return redirect('/')->with(['message'=> 'Yahh Template has been deleted','status'=>'success']);
+        return redirect('/')->with(['message' => 'Yahh Template has been deleted', 'status' => 'success']);
     }
 
     public function in_music(Request $request)
@@ -92,7 +94,7 @@ class ClientTemplateController extends Controller
         $temp = Client_template::where('user_id', Auth::id())->first();
         $temp->music = $request->music;
         $temp->save();
-        return response()->json(['message'=> 'Yeayyy music has been selected','status'=>'success']);
+        return response()->json(['message' => 'Yeayyy music has been selected', 'status' => 'success']);
     }
 
     // add music to your template ?
