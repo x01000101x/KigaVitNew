@@ -1,14 +1,15 @@
 <?php
-//Admin Controllers
-use App\Http\Controllers\AdminController;
 //OtherControllers
-use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ClientTemplateController;
-use App\Http\Controllers\LikeTemplateController;
-use App\Http\Controllers\SubTemplateClientController;
-// use App\Http\Controllers\SubTemplateController;
-use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\{
+    AdminController,
+    BookmarkController,
+    CategoryController,
+    ClientTemplateController,
+    LikeTemplateController,
+    SubTemplateClientController,
+    TemplateController
+};
+
 use App\Models\Rsvp;
 use Illuminate\Support\Facades\Route;
 
@@ -85,7 +86,6 @@ Route::middleware(['auth'])->group(function () {
     })->name('fill-rsvp');
     Route::post('/add-rsvp', [Rsvp::class, 'add_rsvp'])->name('add-rsvp');
     Route::get('/download-format', [ClientTemplateController::class, 'download_format'])->name('download-format');
-
 });
 
 
