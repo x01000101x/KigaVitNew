@@ -12,6 +12,7 @@ use App\Http\Controllers\{
 
 use App\Models\Rsvp;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,18 @@ Route::get('/dashboard', [TemplateController::class, 'index'])->name('dashboard'
 Route::get('/category-filter/{id}', [TemplateController::class, 'category_filter'])->name('category-filter');
 Route::get('/category', [CategoryController::class, 'category'])->name('category');
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+
+Route::get('/send_mail', function () {
+
+    $details = [
+        'title' => 'Mail from Startcode',
+        'body' => 'Hallo Gan'
+    ];
+
+    Mail::to('leonarddamanik7@gmail.com')->send(new \App\Mail\SendMail($details));
+
+    dd("Sent.");
+});
 
 
 Route::middleware(['auth'])->group(function () {
