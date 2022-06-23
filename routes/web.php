@@ -65,6 +65,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/add-bookmarks/{id}', [BookmarkController::class, 'add_bookmarks'])->name('add-bookmarks');
     Route::get('/delete-bookmarks/{id}', [BookmarkController::class, 'delete_bookmarks'])->name('delete-bookmakrs');
     Route::get('/like-template/{id}', [LikeTemplateController::class, 'like_template'])->name('like-template');
+    Route::get('/like-template/{id}', [LikeTemplateController::class, 'like_template'])->name('like-template');
+
+
+    //This is for only testing purposes
+    //Please delete when going to production
+    Route::get('/test-leo', function () {
+        return view('test');
+    });
+
+
 
 
     // when you have selected a template, this route will be available
