@@ -2,6 +2,8 @@
 
 @section('content')
 
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 {{-- <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +22,21 @@
     <form method="POST" action="/go_email">
         @csrf
     <div class="form-group">
-      <label for="email">Send to : </label>
-      <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
+        <div id="inputFormRow">
+            <div class="input-group mb-3">
+                <input type="text" name="title[]" class="form-control m-input" placeholder="Enter title" autocomplete="off" required>
+                <div class="input-group-append">
+                    <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                </div>
+            </div>
+        </div>
+        <div id="newRow"></div>
+        <button id="addRow" type="button" class="btn btn-info">Add Row</button>
+
     </div>
+{{--
+      <label for="email">Send to : </label>
+      <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required> --}}
     <div class="form-group">
         <label for="subject">Subject</label>
         <input type="text" name="subject" class="form-control" id="subject" placeholder="Wedding Invitation" required>
@@ -39,3 +53,25 @@
   </form>
 
   @endsection
+
+<script type="text/javascript">
+    // add row
+    $("#addRow").click(function () {
+        var html = '';
+        html += '<div id="inputFormRow">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="text" name="title[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newRow').append(html);
+    });
+
+    // remove row
+    $(document).on('click', '#removeRow', function () {
+        $(this).closest('#inputFormRow').remove();
+    });
+</script>
+
