@@ -25,7 +25,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Add or Remove Input Fields Dynamically using jQuery - MyNotePaper</title>
+    <title>Send Email</title>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -38,14 +38,15 @@
             <span class="text-secondary">Send Bulk Email</span>
         </div>
 
-        <form method="post" action="">
+        <form method="POST" action="/go_email">
+            @csrf
             <div class="form-group">
             <div class="row">
                 <div class="col-lg-12">
                     <div id="inputFormRow">
-                        <label for="email[]">Send to </label>
+                        <label for="email">Send to </label>
                         <div class="input-group mb-3">
-                            <input type="text" name="email[]" class="form-control m-input" placeholder="Enter email" autocomplete="off">
+                            <input type="text" name="email" class="form-control m-input" placeholder="Enter email" autocomplete="off" required>
                             <div class="input-group-append">
                                 <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                             </div>
@@ -84,7 +85,7 @@
             var html = '';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group mb-3">';
-            html += '<input type="text" name="title[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+            html += '<input type="text" name="email" class="form-control m-input" placeholder="Enter email" autocomplete="off" required>';
             html += '<div class="input-group-append">';
             html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
             html += '</div>';
